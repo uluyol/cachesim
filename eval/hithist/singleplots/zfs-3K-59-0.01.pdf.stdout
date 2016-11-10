@@ -1,0 +1,7 @@
+renumber keys
+draw singleplots/zfs-3K-59-0.01.pdf
+calculate %iles
+45.808333% of keys hold 50% of values
+76.887500% of keys hold 80% of values
+87.987500% of keys hold 90% of values
+98.670833% of keys hold 99% of values

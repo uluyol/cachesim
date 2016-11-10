@@ -1,0 +1,7 @@
+renumber keys
+draw singleplots/lin-3K.pdf
+calculate %iles
+29.291667% of keys hold 50% of values
+55.279167% of keys hold 80% of values
+68.375000% of keys hold 90% of values
+89.995833% of keys hold 99% of values

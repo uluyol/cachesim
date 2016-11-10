@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/linstep.pdf --generator linstep --ops 90000 --records 30 --seed 9 --steps 3

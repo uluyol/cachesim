@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/zfs0.99999-0.0001.pdf --generator zfswitch --ops 300000000 --records 300000 --zftheta 0.99999 --changing-prob 0.0001

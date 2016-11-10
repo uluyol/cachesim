@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/linear_manyops.pdf --generator linear --ops 1000000 --records 300 --seed 0

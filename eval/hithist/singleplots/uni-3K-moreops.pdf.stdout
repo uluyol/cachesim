@@ -1,0 +1,7 @@
+renumber keys
+draw singleplots/uni-3K-moreops.pdf
+calculate %iles
+48.870833% of keys hold 50% of values
+79.195833% of keys hold 80% of values
+89.491667% of keys hold 90% of values
+98.925000% of keys hold 99% of values

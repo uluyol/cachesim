@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/szf-3K-59.pdf --generator skzipfian --ops 300000000 --records 24000 --zftheta 0.99999

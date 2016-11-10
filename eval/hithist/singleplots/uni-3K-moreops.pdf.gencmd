@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/uni-3K-moreops.pdf --generator uniform --ops 30000000 --records 24000

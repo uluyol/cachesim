@@ -1,0 +1,7 @@
+renumber keys
+draw results/nr-3000_no-30000_th-0.3.pdf
+calculate %iles
+32.266667% of keys hold 50% of values
+64.833333% of keys hold 80% of values
+79.133333% of keys hold 90% of values
+96.466667% of keys hold 99% of values

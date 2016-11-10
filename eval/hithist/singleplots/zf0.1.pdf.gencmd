@@ -1,0 +1,1 @@
+cmd/histplot.bash singleplots/zf0.1.pdf --generator zipfian --ops 300000000 --records 300000 --zftheta 0.1
