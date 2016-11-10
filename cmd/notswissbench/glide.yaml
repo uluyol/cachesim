@@ -1,0 +1,5 @@
+package: github.com/uluyol/cachesim/cmd/notswissbench
+import:
+- package: github.com/gocql/gocql
+- package: github.com/pkg/errors
+- package: github.com/spf13/cobra
