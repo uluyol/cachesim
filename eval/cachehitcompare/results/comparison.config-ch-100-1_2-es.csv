@@ -1,0 +1,9 @@
+cassandra,8,0.020673
+localHashed,8,0.058453
+cassandra,16,0.018703
+global,8,0.058820
+localHashed,16,0.052810
+cassandra,32,0.017107
+global,16,0.052820
+localHashed,32,0.047277
+global,32,0.047233
