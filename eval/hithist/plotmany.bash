@@ -31,11 +31,14 @@ for res in "${results[@]}"; do
 	no=${fields[1]}
 	no_plain=$no
 	th=${fields[2]}
+	p25=$(grep '25% of values$' "$res" | cut -d'%' -f1)
 	p50=$(grep '50% of values$' "$res" | cut -d'%' -f1)
+	p75=$(grep '75% of values$' "$res" | cut -d'%' -f1)
+	p80=$(grep '80% of values$' "$res" | cut -d'%' -f1)
 	p90=$(grep '90% of values$' "$res" | cut -d'%' -f1)
 	p99=$(grep '99% of values$' "$res" | cut -d'%' -f1)
 
-	if [[ -z $p50 || -z $p90 || -z $p99 ]]; then
+	if [[ -z $p25 || -z $p50 || -z $p75 || -z $p80 || -z $p90 || -z $p99 ]]; then
 		echo skipping $res: incomplete >&2
 		continue
 	fi
@@ -47,8 +50,8 @@ for res in "${results[@]}"; do
 		no=$(humannum $no)
 	fi
 
-	printf "%s,$th,%s\n" 50pct $p50 90pct $p90 99pct $p99 >>"$tmpdir/nr-${nr}_no-${no}.csv"
-	printf "%s,$no_plain,%s\n" 50pct $p50 90pct $p90 99pct $p99 >>"$tmpdir/nr-${nr}_th-${th}.csv"
+	printf "%s,$th,%s\n" 25pct $p25 50pct $p50 75pct $p75 80pct $p80 90pct $p90 99pct $p99 >>"$tmpdir/nr-${nr}_no-${no}.csv"
+	printf "%s,$no_plain,%s\n" 25pct $p25 50pct $p50 75pct $p75 80pct $p80 90pct $p90 99pct $p99 >>"$tmpdir/nr-${nr}_th-${th}.csv"
 done
 
 mkdir -p "$resdir/graphs" || true

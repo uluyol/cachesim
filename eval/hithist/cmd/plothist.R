@@ -2,47 +2,15 @@
 
 library(ggplot2)
 
-# list with amortized append implementation
-# written by JanKanis on
-# https://stackoverflow.com/questions/2436688/append-an-object-to-a-list-in-r-in-amortized-constant-time-o1/32870310#32870310
-
-expandingList <- function(capacity = 10) {
-	buffer <- vector('list', capacity)
-	length <- 0
-
-	methods <- list()
-
-	methods$double.size <- function() {
-		buffer <<- c(buffer, vector('list', capacity))
-		capacity <<- capacity * 2
-	}
-
-	methods$add <- function(val) {
-		if(length == capacity) {
-			methods$double.size()
-		}
-
-		length <<- length + 1
-		buffer[[length]] <<- val
-	}
-
-	methods$as.list <- function() {
-		b <- buffer[0:length]
-		return(b)
-	}
-
-	methods
-}
-
-# end of list implementation
-
 args <- commandArgs(trailingOnly=TRUE)
 
-if (length(args) < 1) {
-	stop("output pdf must be supplied", call.=FALSE)
+if (length(args) < 3) {
+	stop("need output pdf, zfchk pdf, and theta value", call.=FALSE)
 }
 
 output_pdf <- args[1]
+zfchk_pdf <- args[2]
+theta <- as.numeric(args[3])
 
 hits <- read.csv(file="stdin", header=FALSE)
 colnames(hits) <- c("Key", "Hits")
@@ -69,8 +37,22 @@ if (output_pdf != "none") {
 	.junk <- dev.off()
 }
 
+if (zfchk_pdf != "none") {
+	idx.pairs <- nrow(hits)-combn(40, 2)+1
+	num <- hits$Hits[idx.pairs[2,]] / hits$Hits[idx.pairs[1,]]
+	denom <- hits$Key[idx.pairs[1,]] / hits$Key[idx.pairs[2,]]
+	denom <- denom^theta
+	cmp <- data.frame(x=num/denom)
+	cat(sprintf("draw %s\n", zfchk_pdf))
+	pdf(zfchk_pdf, height=5, width=8)
+	print(ggplot(cmp, aes(x=x)) + stat_ecdf())
+	.junk <- dev.off()
+}
+
 cat("calculate %iles\n")
+keyCount25 <- -1
 keyCount50 <- -1
+keyCount75 <- -1
 keyCount80 <- -1
 keyCount90 <- -1
 keyCount99 <- -1
@@ -80,8 +62,14 @@ for (i in nrow(hits):1) {
 	r <- sofar / totalCount
 	kc <- nrow(hits) - (i-1)
 	#cat(sprintf("total: %f sofar: %f r: %f\n", totalCount, sofar, r))
+	if (r >= 0.25 && keyCount25 < 0) {
+		keyCount25 <- kc
+	}
 	if (r >= 0.5 && keyCount50 < 0) {
 		keyCount50 <- kc
+	}
+	if (r >= 0.75 && keyCount75 < 0) {
+		keyCount75 <- kc
 	}
 	if (r >= 0.8 && keyCount80 < 0) {
 		keyCount80 <- kc
@@ -95,7 +83,9 @@ for (i in nrow(hits):1) {
 	}
 }
 
+cat(sprintf("%f%% of keys hold 25%% of values\n", 100*keyCount25/nrow(hits)))
 cat(sprintf("%f%% of keys hold 50%% of values\n", 100*keyCount50/nrow(hits)))
+cat(sprintf("%f%% of keys hold 75%% of values\n", 100*keyCount75/nrow(hits)))
 cat(sprintf("%f%% of keys hold 80%% of values\n", 100*keyCount80/nrow(hits)))
 cat(sprintf("%f%% of keys hold 90%% of values\n", 100*keyCount90/nrow(hits)))
 cat(sprintf("%f%% of keys hold 99%% of values\n", 100*keyCount99/nrow(hits)))

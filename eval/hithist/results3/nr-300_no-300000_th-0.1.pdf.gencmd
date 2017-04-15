@@ -1,0 +1,1 @@
+./cmd/histplot.bash results3/nr-300_no-300000_th-0.1.pdf --records 300 --ops 300000 --zftheta 0.1

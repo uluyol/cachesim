@@ -1,0 +1,10 @@
+renumber keys
+draw results3/nr-300_no-300000_th-0.3.pdf
+draw results3/zfchk-nr-300_no-300000_th-0.3.pdf
+calculate %iles
+14.333333% of keys hold 25% of values
+37.666667% of keys hold 50% of values
+66.666667% of keys hold 75% of values
+73.000000% of keys hold 80% of values
+86.000000% of keys hold 90% of values
+98.666667% of keys hold 99% of values
